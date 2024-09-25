@@ -1,0 +1,32 @@
+-- Criar o banco de dados
+CREATE DATABASE loja_informatica;
+
+-- Conectar ao banco de dados
+\c loja_informatica;
+
+-- Criar tabela de clientes
+CREATE TABLE clientes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(15),
+    endereco VARCHAR(255),
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Criar tabela de peças
+CREATE TABLE pecas (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    valor DECIMAL(10, 2) NOT NULL,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Criar tabela de estoque
+CREATE TABLE estoque (
+    id SERIAL PRIMARY KEY,
+    id_peca INT REFERENCES pecas(id),
+    quantidade INT NOT NULL,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
